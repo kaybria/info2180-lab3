@@ -1,13 +1,13 @@
-
+ 
  window.onload = function(){startGame()}
  function startGame(){
     let gamelayout = document.querySelectorAll("#board div");
-    const restartGame = document.getElementsByClassName
     for(let i=0; i<gamelayout.length; i++){
         gamelayout[i].classList.add("square");
         const xClass= "X"
         const  oClass= "O"
         let circleTurn 
+        newgame = document.querySelector(".btn")
     gamelayout.forEach(element => { element.addEventListener("click",isClicked)     
     })
     const gameplay = []
@@ -19,8 +19,13 @@
         gameplay.push(currentClass)
         console.log(gameplay)
         circleTurn =! circleTurn
-    
+
     }
+    newgame.onclick = () =>{
+        window.location.reload();
+
+    }
+    //const restartGame = document.getElementsByClassName("btn")
     gamelayout.forEach(element => { element.addEventListener("mouseover",hoverchange)     
     })
     function hoverchange(ele){
@@ -32,15 +37,9 @@
         ele.target.classList.remove("hover")
     }
     }
-    gamelayout.forEach(element)
-    { element.addEventListener("moseover",function(element){
-        element.target.add(hover)
-    })
-    
-    restartGame.addEventListener("click",startGame)
-    console.log(restartGame)
- }
 }
+
+
 function placePlay(space,currentClass){
     space.textContent = currentClass
     space.classList.add(currentClass)
