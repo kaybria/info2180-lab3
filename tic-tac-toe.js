@@ -9,7 +9,6 @@ var combinationsToWin = new Array([0,1,2],
     )
  window.onload = function(){startGame()}
  function startGame(){
-    const winmessage = document.getElementById("status");
     let gamelayout = document.querySelectorAll("#board div");
     for(let i=0; i<gamelayout.length; i++){
         gamelayout[i].setAttribute("class","square");
@@ -29,48 +28,36 @@ var combinationsToWin = new Array([0,1,2],
     }
         newgame = document.querySelector(".btn")
     gamelayout.forEach(element => { element.addEventListener("click",isClicked)  
-        //element.setAttribute("id",count);
-        //count++
     })
-    //console.log(gamelayout[i].innerText)
+     
     const gameplay = []
     function isClicked(ele){
         const space = ele.target
         const currentClass = circleTurn ? oClass :  xClass
         placePlay(space,currentClass)
         circleTurn =! circleTurn
-        //trying if statments 
-        if(gamelayout[0].innerHTML == "X" && gamelayout[1].innerHTML == "X" &&gamelayout[2].innerHTML == "X"){
-            winmessage.setAttribute("class","you-won")
-            winmessage.innerHTML ="Congratulations! X is the Winner!"
-            //console.log(winmessage)
-        }else if (gamelayout[0].innerHTML == "O" && gamelayout[1].innerHTML == "O" &&gamelayout[2].innerHTML == "0"){
-            winmessage.setAttribute("class","you-won")
-            winmessage.innerHTML ="Congratulations! O is the Winner!"
-          }else if (gamelayout[3].innerHTML == "X" && gamelayout[4].innerHTML == "X" &&gamelayout[5].innerHTML == "X"){
-            winmessage.setAttribute("class","you-won")
-            winmessage.innerHTML ="Congratulations! X is the Winner!"
-          }else if (gamelayout[3].innerHTML == "O" && gamelayout[4].innerHTML == "O" &&gamelayout[5].innerHTML == "O"){
-            winmessage.setAttribute("class","you-won")
-            winmessage.innerHTML ="Congratulations! O is the Winner!"
-          }else if (gamelayout[6].innerHTML == "X" && gamelayout[7].innerHTML == "X" &&gamelayout[8].innerHTML == "X"){
-            winmessage.setAttribute("class","you-won")
-            winmessage.innerHTML ="Congratulations! X is the Winner!"
-          }else if (gamelayout[6].innerHTML == "O" && gamelayout[7].innerHTML == "O" &&gamelayout[8].innerHTML == "O"){
-            winmessage.setAttribute("class","you-won")
-            winmessage.innerHTML ="Congratulations! O is the Winner!"
-          }
+        checkwinner(gamelayout,currentClass)
+        //console.log(currentClass)
     
     newgame.onclick = () =>{
         window.location.reload();
 
     }
     
-    //const restartGame = document.getElementsByClassName("btn")
-    
     }
 }
  }
+// to check if current player has won
+function checkwinner(gamelayout,currentClass){
+    const winmessage = document.getElementById("status");
+    for(let i=0; i<combinationsToWin.length; i++){
+        if(gamelayout[combinationsToWin[i][0]].innerHTML === currentClass && gamelayout[combinationsToWin[i][1]].innerHTML=== currentClass && gamelayout[combinationsToWin[i][2]].innerHTML===currentClass){
+            winmessage.setAttribute("class","you-won")
+            winmessage.innerHTML ="Congratulations! " + currentClass + " is the Winner!"  
+        }
+    }
+}
+//to display X or O on board
 function placePlay(space,currentClass){
     space.textContent = currentClass
     space.classList.add(currentClass)
